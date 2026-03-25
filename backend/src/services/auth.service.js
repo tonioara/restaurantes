@@ -20,7 +20,12 @@ export const registerUser = async ({ name, email, password }) => {
 };
 
 export const loginUser = async ({ email, password }) => {
-  const user = await User.findOne({ email }).select("-password");
+  
+  const user = await User.findOne({ email }).select("+password");
+  
+
+console.log("ANTES DE BCRYPT:", user);
+console.log("PASSWORD EN DB:", user.password);
   if (!user) {
     throw new Error("Invalid credentials");
   }
@@ -35,6 +40,8 @@ export const loginUser = async ({ email, password }) => {
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
   );
-
+  console.log("USER DB:", user);
+console.log("PASSWORD INGRESADO:", password);
+console.log("HASH DB:", user?.password);
   return { user, token };
 };
