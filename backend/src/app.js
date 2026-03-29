@@ -33,11 +33,6 @@ app.use("/api/reservations", reservationRoutes);
 app.get("/", (req, res) => {
   res.send("API running 🚀");
 });
-app.get("/api/protected", authMiddleware, (req, res) => {
-    res.json({ message: "Acces granted", user: req.user 
-
-    })
-    });
 
 const PORT = process.env.PORT || 3000;
 
